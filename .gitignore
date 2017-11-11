@@ -9,6 +9,9 @@
 #vscode
 .vscode
 
+#qtcreator
+*.user
+
 # Compiled Object files
 *.slo
 *.lo
