@@ -43,6 +43,7 @@
 
 // Qt
 #include <QAbstractItemModel>
+#include <QtDebug>
 
 // Std
 #include <cassert>
