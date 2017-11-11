@@ -1,37 +1,37 @@
 //--------------------------------------------------------------------------------------------------
-// 
+//
 /// @PROJECT	gtest-runner
 /// @BRIEF		A Qt abstract item model with an internal tree data structure
-/// @DETAILS	
+/// @DETAILS
 //
 //--------------------------------------------------------------------------------------------------
 //
 // The MIT License (MIT)
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
-// and associated documentation files (the "Software"), to deal in the Software without 
-// restriction, including without limitation the rights to use, copy, modify, merge, publish, 
-// distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the 
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+// and associated documentation files (the "Software"), to deal in the Software without
+// restriction, including without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
 // Software is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all copies or 
+//
+// The above copyright notice and this permission notice shall be included in all copies or
 // substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
-// BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
-// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+// BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 //--------------------------------------------------------------------------------------------------
 //
 // ATTRIBUTION:
-// Parts of this work have been adapted from: 
+// Parts of this work have been adapted from:
 //
 //--------------------------------------------------------------------------------------------------
-// 
+//
 // Copyright (c) 2016 Nic Holthaus
-// 
+//
 //--------------------------------------------------------------------------------------------------
 
 #ifndef QTreeModel_h__
@@ -56,7 +56,7 @@
 //  ----------------------------------------------------------------------------
 ///	@brief		Abstract implementation of the QAbstractItemModel interface using
 ///				an STL-style tree as the internal data structure.
-///	@details	
+///	@details
 //  ----------------------------------------------------------------------------
 template <class T>
 class QTreeModel : public QAbstractItemModel
@@ -74,8 +74,8 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 	//		ABSTRACT INTERFACE
 	//////////////////////////////////////////////////////////////////////////
-	
-	virtual int			columnCount(const QModelIndex &parent) const								= 0;
+
+	virtual int			columnCount(const QModelIndex &parent) const override						= 0;
 	virtual QVariant	data(const QModelIndex &index, int role = Qt::DisplayRole) const override	= 0;
 
 public:
@@ -103,7 +103,7 @@ public:
 		{
 			return iterator(static_cast<pointer>(index.internalPointer()));
 		}
-		
+
 		return tree.root();
 	}
 
@@ -228,7 +228,7 @@ public:
 	}
 
 	/**
-	* @brief		Returns first element of model.  
+	* @brief		Returns first element of model.
 	* @ details		This is the same as root(), but added for clearer semantics in loops.
 	* @returns		iterator to the root element of the model, or end() if the model is empty.
 	*/
@@ -263,7 +263,7 @@ public:
 	//		INHERITED INTERFACE
 	//////////////////////////////////////////////////////////////////////////
 
-	virtual QModelIndex	index(int row, int column, const QModelIndex &parent = QModelIndex()) const
+	virtual QModelIndex	index(int row, int column, const QModelIndex &parent = QModelIndex()) const override
 	{
 		if (!hasIndex(row, column, parent))
 			return QModelIndex();
@@ -311,7 +311,7 @@ public:
 	}
 
 	virtual int	rowCount(const QModelIndex& parent = QModelIndex()) const override
-	{		
+	{
 		iterator parentItr;
 		if (parent.column() > 0)
 			return 0;
@@ -320,7 +320,7 @@ public:
 			parentItr = root();
 		else
 			parentItr = static_cast<pointer>(parent.internalPointer());
-			
+
 		return rowCount(parentItr);
 	}
 
